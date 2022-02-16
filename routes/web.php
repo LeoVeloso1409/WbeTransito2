@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebTransitoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WebTransitoController@layout');
+Route::get('/layout', 'WebTransitoController@layout');
+
+Route::get('layout/index', [WebTransitoController::class, 'index']);
+Route::get('layout/create', [WebTransitoController::class, 'edit']);
+Route::post('/', [WebTransitoController::class, 'storeAit']);
+
+//Route::get('/layout/show', 'WebTransitoController@show');
+
