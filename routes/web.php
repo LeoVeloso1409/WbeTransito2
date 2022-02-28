@@ -14,12 +14,18 @@ use App\Http\Controllers\WebTransitoController;
 |
 */
 
+Route::resource('/', WebTransitoController::class);
+Route::get('/listar', [WebTransitoController::class, 'listar']);
+/*
 Route::get('/', 'WebTransitoController@layout');
 Route::get('/layout', 'WebTransitoController@layout');
 
 Route::get('layout/index', [WebTransitoController::class, 'index']);
-Route::get('layout/create', [WebTransitoController::class, 'edit']);
-Route::post('/', [WebTransitoController::class, 'storeAit']);
+Route::get('layout/create', [WebTransitoController::class, 'create']);
+Route::post('/layout', [WebTransitoController::class, 'store']);
+Route::get('layout/edit', [WebTransitoController::class, 'edit']);
+Route::post('/layout', [WebTransitoController::class, 'update']);
+
 
 //Route::get('/layout/show', 'WebTransitoController@show');
 

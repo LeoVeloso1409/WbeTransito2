@@ -1,58 +1,49 @@
-@extends('main')
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Criação Web de Auto de Infrações de Trânsito - AIT">
+        <meta name="author" content="Leonardo Veloso Neves">
+        <title>WebTrânsito - AIT</title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css" >
+        
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="<?php echo asset('css/style.css')?>" >
+        <link rel="stylesheet" href="{{url('assets/bootstrap/css/bootstrap.min.css')}}">
+        <link rel="shortcut icon" href="assets/Imagens/LogoSistema.png">
+        <link rel="shortcut icon" type="imagex/png" href="{{url('assets/Imagens/LogoSistema.png')}}">
+    </head>
+    <body>
+        <div class="container-fluid text-center bg-light p-4 position-static h-auto min-vh-100 flex-column d-flex" id="site">
+            <header class="text-center bg-info shadow-lg align-content-center p-auto d-block" id="header">
+                <h1 class="text-center text-capitalize"><b>WebTrânsito</b></h1>
+            </header>
 
-@section('layout')
+            <div class="container-fluid shadow-lg h-auto w-100 flex-column min-vh-100" id="content">
+                @csrf
 
-@yield('navbar')
+                @yield('login')
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top d-flex bg-secondary shadow mt-1 mb-1 w-100 mh-100" id="navbar">
-    <a href="/"> <img src="assets/Imagens/logoSistema.png" width="60"></a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#modal-alert">Novo Ait</button>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-secondary" href="layout/createuser">Cadastrar Usuário</a>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-secondary" href="layout/index">Mostrar AIT's</a>
-            </li>
-        </ul>
-        <span>
-            <a class="btn btn-secondary" href="logout">Sair</a>
-        </span>
-    </div>
-</nav>
+                @yield('index')
 
-<div class="container-fluid h-auto w-100 flex-column min-vh-100" id="content">
-    <div class="row p-1 mt-5 d-inline-flex shadow-sm position-static w-75" id="header-form">
-        <div class="container w-25 m-auto p-auto position-static h-auto flex-row-reverse d-md-inline-flex d-none" id="imgHeaderForm">
-            <img src="assets/Imagens/logoSistema.png" alt="Responsive image" width="150" height="100" id="img-header-form" class="border border-dark d-none d-md-inline-flex">
+                @yield('create')
+
+                @yield('edit')
+
+                @yield('listar')
+
+            </div>
+            <div class="container-fluid" id="footer">
+                <p>Copyright &copy; 2022 by Leonardo Veloso Neves.<br>IFNMG - Pirapora/MG</p>
+            </div>
         </div>
-        <div class="container h-auto mh-100 mw-100 text-right w-75 d-inline" id="textForm">
-            <h3 class="text-left">Auto de Infrações de Trânsito - AIT</h3>
-            <fieldset disabled>
-                <form>
-                    @foreach ($aits as $ait)
-                        @php
-                            $user = $ait->find($ait->id)->relUsers;
-                        @endphp
-                    @endforeach
-                    <div class="form-row">
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <input type="text" class="form-control" placeholder={{$user->matricula}}>
-                        </div>
-                        <div class="invisible-sm col-md-2 col-lg-2 d-none d-md-inline"></div>
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                            <input type="text" class="form-control" placeholder={{$user->nome}}>
-                        </div>
-                    </div>
-                </form>
-            </fieldset>
-        </div>
-    </div>
-    <div class="row mw-100 mt-5 w-75 d-inline-block" id="img-layout"></div>
-    <br>
-</div>
 
-@endsection
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    </body>
+</html>

@@ -1,61 +1,57 @@
-@extends('main')
+@extends('layout')
 
 @section('index')
 
-    <div class="container text-center p-2 position-static h-auto flex-column d-flex">
-        <nav class="navbar navbar-expand-lg navbar-light sticky-top d-flex bg-secondary shadow-lg mt-1 mb-1 w-100 mh-100" id="navbar">
-            <a class="" href="/"> <img src="./assets/Imagens/logoSistema.png" width="60"></a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="btn btn-secondary" href="/">Inicio</a>
-                    </li>
-                </ul>
-
-                <ul class="col-lg-10 navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item"> </li>
-                </ul>
-
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <span>
-                        <a class="btn btn-secondary" href="logout">Sair</a>
-                    </span>
-                </ul>
-            </div>
-        </nav>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top d-flex bg-secondary shadow-lg mt-1 mb-1 w-100 mh-100" id="navbar">
+    <a class="navbar-brand" href="/"> <img src="assets/Imagens/logoSistema.png" width="60"  alt=""></a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="btn btn-secondary" href="create">Novo Ait</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-secondary" href="layout/createuser">Cadastrar Usuário</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-secondary" href="listar">Mostrar AIT's</a>
+            </li>
+        </ul>
+        <ul class="col-lg navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item"> </li>
+        </ul>
+        <span>
+            <a class="btn btn-secondary" href="logout">Sair</a>
+        </span>
     </div>
-    <div class="col-8 m-auto">
-        <table class="table table-hover thead-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Código AIT</th>
-                    <th scope="col">Placa</th>
-                    <th scope="col">Marca</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Orgão</th>
-                    <th scope="col">Matrícula</th>
-                    <th scope="col">Agente</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($aits as $ait)
-                    @php
-                        $user = $ait->find($ait->id)->relUsers;
-                    @endphp
-                    <tr>
-                        <th scope="row">{{$ait->cod_ait}}</th>
-                        <td>{{$ait->placa}}</td>
-                        <td>{{$ait->marca}}</td>
-                        <td>{{$ait->modelo}}</td>
-                        <td>{{$ait->orgao_autuador}}</td>
-                        <td>{{$user->matricula}}</td>
-                        <td>{{$user->nome}}</td>
-                        <td>
-                            <a href="{{url("/index/show/$ait->id")}}"> <button class="btn btn-primary">Visualizar</button></a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+</nav>
+
+<div class="container-fluid h-auto w-100 flex-column min-vh-100" id="content">
+    <div class="row p-1 mt-5 d-inline-flex shadow-sm position-static w-75" id="header-form">
+        <div class="container w-25 m-auto p-auto position-static h-auto flex-row-reverse d-md-inline-flex d-none" id="imgHeaderForm">
+            <img src="assets/Imagens/logoSistema.png" alt="Responsive image" width="150" height="100" id="img-header-form" class="border border-dark d-none d-md-inline-flex">
+        </div>
+        <div class="container h-auto mh-100 mw-100 text-right w-75 d-inline" id="textForm">
+            <h3 class="text-left">Auto de Infrações de Trânsito - AIT</h3>
+            <fieldset disabled>
+                <form>
+                    @foreach ($users as $user)
+                        @php
+                            $user = $users->find($user->id);
+                        @endphp
+                    @endforeach
+                    <div class="form-row d-inline">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <input type="text" class="form-control" placeholder={{$user->matricula}}>
+                        </div>
+                        
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <input type="text" class="form-control" placeholder={{$user->nome}}>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
     </div>
+</div>
+
 @endsection

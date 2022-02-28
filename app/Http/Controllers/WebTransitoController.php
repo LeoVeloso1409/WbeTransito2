@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ModelAit;
+use App\Http\Requests\AitRequest;
 
 class WebTransitoController extends Controller
 {
@@ -23,18 +24,19 @@ class WebTransitoController extends Controller
         $this->objAit = new ModelAit();
     }
 
-    public function layout()
+    public function listar()
     {
-        $aits = $this->objAit->all();
-        return view('layout', compact('aits'));
+        $users = $this->objUser->all();
+        $aits = $this->objAit->all()->sortBy('cod_ait');
+
+        return view('listar', compact('users', 'aits'));
     }
 
     public function index()
     {
         $users = $this->objUser->all();
-        $aits = $this->objAit->all()->sortBy('cod_ait');
 
-        return view('index', compact('users', 'aits'));
+        return view('index', compact('users'));
     }
 
     /**
@@ -42,11 +44,12 @@ class WebTransitoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createAit()
+    public function create()
     {
         $users = $this->objUser->all();
+        //$aits = $this->objAit->all();
 
-        return view('createAit', compact('users'));
+        return view('create', compact('users'));
     }
 
     /**
@@ -55,18 +58,18 @@ class WebTransitoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeAit(Request $request)
+    public function store(AitRequest $request)
     {
         $ait = $this->objAit->create([
             'user_id'=>$request->user_id,
             'cod_ait'=>$request->cod_ait,
-            'orgao_auturador'=>$request->orgao,
+            'orgao_autuador'=>$request->orgao_autuador,
             'matricula'=>$request->matricula,
             'nome'=>$request->nome,
         ]);
 
         if($ait){
-            return redirect()->intended('layout\create');
+            return redirect()->intended('listar');
         }
         else{
             return redirect()->back()->with('msgError', 'Erro de Execução.');
@@ -82,7 +85,7 @@ class WebTransitoController extends Controller
     public function show($id)
     {
         $ait = $this->objAit->find($id);
-
+        
         return view('show', compact('ait'));
     }
 
@@ -96,7 +99,7 @@ class WebTransitoController extends Controller
     {
         $ait = $this->objAit->find($id);
 
-        return view('createAit', compact('ait'));
+        return view('create', compact('ait'));
     }
 
     /**
@@ -106,7 +109,7 @@ class WebTransitoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AitRequest $request, $id)
     {
         //
     }
@@ -124,7 +127,7 @@ class WebTransitoController extends Controller
 
     public static function gerarCodAit(){
 
-        $cod_ait = 'PM-'.date('Y').'-'.idate('U');
+        $cod_ait = date('Y').'-PM-'.idate('U');
         return $cod_ait;
 
         /*

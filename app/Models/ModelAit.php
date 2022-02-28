@@ -12,7 +12,7 @@ class ModelAit extends Model
     // Permitir Mass Assignment nos campos
     protected $fillable = [
 
-        'id_usuario',
+        'user_id',
         'cod_ait',
         'orgao_autuador',
         
