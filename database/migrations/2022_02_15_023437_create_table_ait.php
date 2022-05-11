@@ -55,6 +55,7 @@ class CreateTableAit extends Migration
             $table->string('imagem')->nullable();
             $table->string('matricula');
             $table->string('nome');
+            $table->boolean('status');
 
             $table->timestamps();
         });

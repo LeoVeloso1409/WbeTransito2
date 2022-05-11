@@ -24,36 +24,19 @@ class AitRequest extends FormRequest
     public function rules()
     {
         return [
-            'placa' => 'required|alpha_num|max:7',
-            'marca' => 'required',
-            'modelo' => 'required',
-            'cor' => 'required',
-            'chassi'=> 'alpha_num',
-            'pais' => 'required',
-            'especie' => 'required',
-            'nome_condutor',
-            'cpf_condutor',
-            'rg_condutor',
-            'cnh_condutor',
-            'uf_cnh',
-            'categoria_cnh',
-            'validade_cnh',
-            'logradouro' => 'required',
-            'numero' => 'required',
-            'bairro' => 'required',
-            'cidade' => 'required',
-            'data' => 'required|max:8|min:6',
-            'hora' => 'required|max:4',
-            'codigo_infracao' => 'required',
-            'descricao' => 'required',
-            'medicao_realizada',
-            'limite_regulamentado',
-            'valor_considerado',
-            'observacoes',
-            'medida1',
-            'medida2',
-            'ficha_vistoria',
-            'imagem' => 'image',
+            'user_id' => 'required|numeric',
+            'cod_ait' => 'required',
+            'orgao_autuador' => 'required',
+            'matricula' => 'required',
+            'nome' => 'required',
+        ];
+    }
+
+    public function messages(){
+
+        return[
+            'user_id.required' => 'O campo Código de Usuário é obrigatório.',
+            'user_id.numeric' => 'O campo Código de Usuário de ser um número inteiro.',
         ];
     }
 }

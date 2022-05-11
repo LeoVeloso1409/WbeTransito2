@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
             'orgao' => 'PMMG',
             'unidade' => '55 BPM',
             'funcao' => "ADMIN",
-            'senha' => Hash::make('123456')
+            'senha' => Hash::make('123456'),
         ]);
+    }
 }

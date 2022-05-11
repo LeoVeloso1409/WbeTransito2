@@ -24,19 +24,18 @@ class WebTransitoController extends Controller
         $this->objAit = new ModelAit();
     }
 
-    public function listar()
+    public function login()
     {
-        $users = $this->objUser->all();
-        $aits = $this->objAit->all()->sortBy('cod_ait');
 
-        return view('listar', compact('users', 'aits'));
+        return view('login.login');
     }
 
     public function index()
     {
         $users = $this->objUser->all();
+        $aits = $this->objAit->all()->sortBy('cod_ait');
 
-        return view('index', compact('users'));
+        return view('ait.index', compact('users', 'aits'));
     }
 
     /**
@@ -49,7 +48,7 @@ class WebTransitoController extends Controller
         $users = $this->objUser->all();
         //$aits = $this->objAit->all();
 
-        return view('create', compact('users'));
+        return view('layout.create', compact('users'));
     }
 
     /**
@@ -69,7 +68,7 @@ class WebTransitoController extends Controller
         ]);
 
         if($ait){
-            return redirect()->intended('listar');
+            return redirect()->intended('/webtransito/edit/'.$request->cod_ait);
         }
         else{
             return redirect()->back()->with('msgError', 'Erro de Execução.');
@@ -82,11 +81,12 @@ class WebTransitoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $ait = $this->objAit->find($id);
-        
-        return view('show', compact('ait'));
+        $users = $this->objUser->all();
+        $aits = $this->objAit->all()->sortBy('cod_ait');
+
+        return view('layout.listar', compact('users', 'aits'));
     }
 
     /**
@@ -97,9 +97,14 @@ class WebTransitoController extends Controller
      */
     public function edit($id)
     {
-        $ait = $this->objAit->find($id);
+       // dd("edit");
+        $ait = $this->objAit->where("cod_ait", $id)->first();
 
-        return view('create', compact('ait'));
+        //dd($ait);
+
+        $users = $this->objUser->all();
+
+        return view('ait.edit', compact('ait', 'users'));
     }
 
     /**
@@ -111,8 +116,52 @@ class WebTransitoController extends Controller
      */
     public function update(AitRequest $request, $id)
     {
-        //
+        $ait = $this->objAit->where(['cod_ait'=>$id])->update([
+            'placa'=>$request->placa,
+            'marca'=>$request->marca,
+            'modelo'=>$request->modelo,
+            'cor'=>$request->cor,
+            'chassi'=>$request->chassi,
+            'pais'=>$request->pais,
+            'especie'=>$request->especie,
+
+            'nome_condutor'=>$request->nome_condutor,
+            'cpf_condutor'=>$request->cpf_condutor,
+            'rg_condutor'=>$request->rg_condutor,
+            'cnh_condutor'=>$request->cnh_condutor,
+            'uf_cnh'=>$request->uf_cnh,
+            'categoria_cnh'=>$request->categoria_cnh,
+            'validade_cnh'=>$request->validade_cnh,
+
+            'logradouro'=>$request->logradouro,
+            'numero'=>$request->numero,
+            'bairro'=>$request->bairro,
+            'cidade'=>$request->cidade,
+            'data'=>$request->data,
+            'hora'=>$request->hora,
+
+            'codigo_infracao'=>$request->codigo_infracao,
+            'descricao'=>$request->descricao,
+            'medicao_realizada'=>$request->medicao_realizada,
+            'limite_regulamentado'=>$request->limite_regulamentado,
+            'valor_considerado'=>$request->valor_considerado,
+            'observacoes'=>$request->observacoes,
+
+            'medida1'=>$request->medida1,
+            'medida2'=>$request->medida2,
+            'ficha_vistoria'=>$request->ficha_vistoria,
+
+            'imagem'=>$request->imagem,
+        ]);
+
+        if($ait){
+            return redirect()->intended('/webtransito');
+        }
+        else{
+            return redirect()->back()->with('msgError', 'Erro de Execução.');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

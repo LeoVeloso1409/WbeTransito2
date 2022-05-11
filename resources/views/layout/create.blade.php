@@ -3,11 +3,11 @@
 @section('create')
 
     <nav class="navbar navbar-expand-lg navbar-light sticky-top d-flex bg-secondary shadow-lg mt-1 mb-1 w-100 mh-100" id="navbar">
-        <a class="navbar-brand" href="/"> <img src="assets/Imagens/logoSistema.png" width="60"></a>
+        <a class="navbar-brand" href="/webtransito"> <img src="assets/Imagens/logoSistema.png" width="60"></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="btn btn-secondary" href="/">Início</a>
+                    <a class="btn btn-secondary" href="/webtransito">Início</a>
                 </li>
             </ul>
             <ul class="col-lg navbar-nav mr-auto mt-2 mt-lg-0">
@@ -25,10 +25,12 @@
         <div class="text-center mt-4 mb-4 p-2 alert-danger">
             @foreach ($errors->all() as $error)
                 {{$error}}
+                <br>
             @endforeach
         </div>
+    @endif
     <div class="col-8 m-auto">
-        <form name="create" id="create" method="POST" action="/">
+        <form name="create" id="create" method="POST" action="{{url('/webtransito')}}">
             
             @csrf
 
@@ -37,6 +39,7 @@
                     $user = $user->find($user->id);
                 @endphp
             @endforeach
+
             @php
                 $cod_ait = App\Http\Controllers\WebtransitoController::gerarCodAit();
             @endphp

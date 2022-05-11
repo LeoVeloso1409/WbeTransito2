@@ -3,11 +3,11 @@
 @section('listar')
 
     <nav class="navbar navbar-expand-lg navbar-light sticky-top d-flex bg-secondary shadow-lg mt-1 mb-1 w-100 mh-100" id="navbar">
-        <a class="navbar-brand" href="/"> <img src="assets/Imagens/logoSistema.png" width="60"></a>
+        <a class="navbar-brand" href="/webtransito"> <img src="assets/Imagens/logoSistema.png" width="60"></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="btn btn-secondary" href="/">Início</a>
+                    <a class="btn btn-secondary" href="/webtransito">Início</a>
                 </li>
             </ul>
             <ul class="col-lg navbar-nav mr-auto mt-2 mt-lg-0">
@@ -71,7 +71,7 @@
                         <td>{{$user->matricula}}</td>
                         <td>{{$user->nome}}</td>
                         <td>
-                            <a href="{{url("edit/$ait->id")}}"> <button class="btn btn-primary">Iniciar</button></a>
+                            <a href="{{url("/webtransito/$ait->id/edit")}}"> <button class="btn btn-primary">Iniciar</button></a>
                         </td>
                     </tr>
                 @endforeach
